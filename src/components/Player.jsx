@@ -16,6 +16,10 @@ const Player = ({
   song,
 }) => {
   //const [currentSong, setCurrentSong] =useState(songs[0]);
+  const [
+    durationReady,
+    setDurationReady,
+  ] = useState(false);
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] =
     useState(false);
@@ -33,24 +37,30 @@ const Player = ({
     const secs = (
       "0" + Math.floor(time % 60)
     ).slice(-2);
-    if (
-      duration &&
-      mins == "0" &&
-      secs == "00"
-    ) {
-      return "  :  ";
-    } else if (!time && !duration) {
-      return "0:00";
-    }
+    // if (
+    //   duration &&
+    //   mins == "0" &&
+    //   secs == "00"
+    // ) {
+    //   return "  :  ";
+    // } else if (!time && !duration) {
+    //   return "0:00";
+    // }
     return mins + ":" + secs;
   };
 
   const timeUpdateHandler = (e) => {
     let currentTime =
-      e.target.currentTime | "0";
+      e.target.currentTime;
     let duration =
-      e.target.duration | "0";
-
+      e.target.duration || 0;
+    if (duration) {
+      setDurationReady(true);
+    } else {
+      if (durationReady) {
+        setDurationReady(false);
+      }
+    }
     setSongInfo({
       currentTime: currentTime,
       duration: duration,
@@ -79,19 +89,23 @@ const Player = ({
           type="range"
           value={songInfo.currentTime}
           min={0}
-          max={songInfo.duration}
+          max={songInfo.duration || 0}
           step="any"
           onChange={dragHandler}
         />
-        <p>
-          {/* {getTime(
+        <p
+          className={`duration-p ${durationReady ? "duration-appear" : null}`}
+        >
+          <span>
+            {/* {getTime(
             songInfo.duration,
             Symbol("duration")
           ) || `\u2588`} */}
-          {getTime(
-            songInfo.duration,
-            Symbol("duration")
-          )}
+            {getTime(
+              songInfo.duration,
+              Symbol("duration")
+            )}
+          </span>
         </p>
       </div>
       <div className="play-control">

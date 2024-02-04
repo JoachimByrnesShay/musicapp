@@ -4,9 +4,12 @@ const Library = ({
   songs,
   setSongs,
   setCurrentSong,
+  libraryOpen,
 }) => {
   return (
-    <div className="library">
+    <div
+      className={`library ${libraryOpen ? "library-open" : null}`}
+    >
       <h2>Library</h2>
       <div className="library-songs">
         {songs.map((song) => {
