@@ -199,7 +199,11 @@ const Player = ({
         onLoadedMetadata={
           timeUpdateHandler
         }
-        onEnded={playSongHandler}
+        onEnded={() =>
+          skipTrackHandler(
+            "skip-forward"
+          )
+        }
         onLoadedData={() =>
           isPlaying
             ? audioRef.current.play()

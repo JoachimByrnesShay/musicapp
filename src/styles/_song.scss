@@ -8,10 +8,14 @@
     img {
         width: 20%;
         border-radius: 100%;
-    
     }
     h2 {
         padding: 3rem 1rem 1rem 1rem;
     }
 }
 
+@media screen and (max-width: 768px){
+    .song-container {
+        width: 60%;
+    }
+}

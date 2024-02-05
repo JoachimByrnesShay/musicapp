@@ -7,20 +7,17 @@
     // background-color:white;
     box-shadow:2px 2px 50px gray;
     overflow:scroll;
-    transform: translateX(-50%);
+    transform: translateX(-100%);
     transition:all 0.5s ease;
     opacity:0;
     h2 {
         padding:2rem;
     }
     &.library-open {
-        transform: translateX(0);
+        // transform: translateX(0);
         opacity:1;
     }
-  
 }
-
-
 
 .library-song {
     display:flex;
@@ -28,13 +25,13 @@
     // flex-direction:column;
     padding:1rem 2rem 1rem 2rem;
     cursor:pointer;
+    transition:background 0.5s ease;
     img {
         width:30%;
     }
     &:hover{
         background:rgb(222 222 255);
-    }
-    
+    }    
 }
 
 .library-song.selected {
@@ -46,8 +43,6 @@
         
     }
 }
-
-
 
 .song-description {
     padding-left: 1rem;
@@ -76,6 +71,11 @@
 *::-webkit-scrollbar-thumb{
     background-color: rgb(155 155 155 / 0.5);
     border-radius: 20px;
-    border:transparent;
-    
+    border:transparent;   
+}
+
+@media screen and (max-width: 768px){
+    .library {
+        width:100%;
+    }
 }
