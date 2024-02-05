@@ -8,16 +8,54 @@
 
 .time-control {
     width:50%;
-    background:lightcoral;
+    // background:lightcoral;
+    background: white;
     display:flex;
     justify-content:space-between;
     input {
         width:100%;
-        padding: 1rem 0;
+    
+        // padding: 1rem 0;
+        appearance:none;
+        // -webkit-appearance: none;
+        background:transparent;
+        cursor:pointer;
+    }
+    input:focus {   
+        outline: none;
+
+    }
+    input::-webkit-slider-thumb {
+        appearance:none;
+        // -webkit-appearance:none;
+        height:16px;
+        width:16px;
+        // background: black;
     }
     p {
         padding: 1rem;
     }
+}
+
+.time-control .track {
+    background:rgb(176, 192, 244);
+    width:100%;
+    height:1rem;
+    align-self: center;
+    position:relative;
+    border-radius:1rem;
+    overflow:hidden;
+}
+
+.time-control .animate-track{
+    background: rgb(204 204 204);
+    height:100%;
+    width:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    transform:translateX(0%);
+    pointer-events:none;
 }
 
 .play-control {
@@ -25,20 +63,19 @@
     justify-content:space-between;
     align-items:center;
     padding:1rem;
-    border:3px solid blue;
+    border:3px solid rgb(145, 145, 235);
     width:50%;
     svg {
         cursor:pointer;
     }
-
 }
 
 .duration-p {
-    text-shadow: 1px 1px 50px red, 0 0 10px blue, 0 0 10px blue;
+    text-shadow: 1px 1px 5px red, 0 0 5px blue, 0 0 5px blue;
 }
 .duration-p span {
     color:transparent;
-    opacity:0.3;
+    opacity:0.4;
     // text-shadow:0 0 55px black, -4px, 2px 4px blue;
 
     

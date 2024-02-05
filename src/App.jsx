@@ -17,6 +17,7 @@ function App() {
     useState({
       currentTime: 0,
       duration: 0,
+      animationPercentage: 0,
     });
 
   const updateLibrarySelection = (

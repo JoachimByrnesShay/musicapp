@@ -25,12 +25,34 @@ const Player = ({
   const [isPlaying, setIsPlaying] =
     useState(false);
   const dragHandler = (e) => {
-    audioRef.current.currentTime =
-      e.target.value;
-    setSongInfo({
-      ...songInfo,
-      currentTime: e.target.value,
-    });
+    if (songInfo.duration) {
+      let currentTime = e.target.value;
+      let duration = songInfo.duration;
+      let newVal =
+        (currentTime / duration) * 100;
+      setSongInfo({
+        currentTime: currentTime,
+        duration: duration,
+        animationPercentage: newVal,
+      });
+      audioRef.current.currentTime =
+        e.target.value;
+      console.log(e.target.value);
+    }
+
+    // const currentTime = e.targetValue;
+    // const duration = songInfo.duration;
+    // setSongInfo({
+    //   ...songInfo,
+    //   currentTime: e.target.value,
+    //   animationPercentage:
+    //     (currentTime / duration) * 100,
+    // });
+    // setSongInfo({
+    //   ...songInfo,
+    //   currentTime: e.target.value,
+    // });
+    // timeUpdateHandler(e);
   };
 
   const getTime = (time, duration) => {
@@ -45,7 +67,7 @@ const Player = ({
     let currentTime =
       e.target.currentTime;
     let duration =
-      e.target.duration || 0;
+      e.target.duration || "0";
     if (duration) {
       setDurationReady(true);
     } else {
@@ -53,12 +75,22 @@ const Player = ({
         setDurationReady(false);
       }
     }
+    // console.log(
+    //   `${currentTime / duration}%`
+    // );
+    const newVal =
+      ((currentTime / duration) * 100) |
+      0;
     setSongInfo({
       currentTime: currentTime,
       duration: duration,
+      animationPercentage: newVal,
     });
   };
 
+  const trackAnim = {
+    transform: `translateX(${songInfo.animationPercentage}%)`,
+  };
   const playSongHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -98,14 +130,27 @@ const Player = ({
             songInfo.currentTime
           )}
         </p>
-        <input
-          type="range"
-          value={songInfo.currentTime}
-          min={0}
-          max={songInfo.duration || 0}
-          step="any"
-          onChange={dragHandler}
-        />
+        <div
+          style={{
+            background: `linear-gradient(to right, ${song.color[0]}, ${song.color[1]})`,
+          }}
+          className="track"
+        >
+          <input
+            type="range"
+            value={songInfo.currentTime}
+            min={0}
+            max={songInfo.duration || 0}
+            step="any"
+            onChange={dragHandler}
+            onClick={dragHandler}
+          />
+          <div
+            className="animate-track"
+            style={trackAnim}
+          ></div>
+        </div>
+
         <p
           className={`duration-p ${durationReady ? "duration-appear" : null}`}
         >
