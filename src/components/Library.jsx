@@ -2,9 +2,8 @@ import LibrarySong from "./LibrarySong.jsx";
 
 const Library = ({
   songs,
-  setSongs,
-  setCurrentSong,
   libraryOpen,
+  updateLibrarySelection,
 }) => {
   return (
     <div
@@ -17,10 +16,9 @@ const Library = ({
             <LibrarySong
               key={song.id}
               song={song}
-              setCurrentSong={
-                setCurrentSong
+              updateLibrarySelection={
+                updateLibrarySelection
               }
-              setSongs={setSongs}
             />
           );
         })}

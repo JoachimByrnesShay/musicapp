@@ -14,8 +14,9 @@ const Player = ({
   setSongInfo,
   songInfo,
   song,
+  songs,
+  updateLibrarySelection,
 }) => {
-  //const [currentSong, setCurrentSong] =useState(songs[0]);
   const [
     durationReady,
     setDurationReady,
@@ -37,15 +38,6 @@ const Player = ({
     const secs = (
       "0" + Math.floor(time % 60)
     ).slice(-2);
-    // if (
-    //   duration &&
-    //   mins == "0" &&
-    //   secs == "00"
-    // ) {
-    //   return "  :  ";
-    // } else if (!time && !duration) {
-    //   return "0:00";
-    // }
     return mins + ":" + secs;
   };
 
@@ -77,6 +69,27 @@ const Player = ({
     console.log(audioRef);
   };
 
+  const skipTrackHandler = (
+    direction
+  ) => {
+    const currentIndex =
+      songs.findIndex(
+        (songObj) =>
+          songObj.id === song.id
+      );
+    const indexOperand = {
+      "skip-forward": currentIndex + 1,
+      "skip-back":
+        songs.length + currentIndex - 1,
+    };
+    const newIndex =
+      indexOperand[direction] %
+      songs.length;
+    updateLibrarySelection(
+      songs[newIndex]
+    );
+  };
+
   return (
     <div className="player">
       <div className="time-control">
@@ -97,10 +110,6 @@ const Player = ({
           className={`duration-p ${durationReady ? "duration-appear" : null}`}
         >
           <span>
-            {/* {getTime(
-            songInfo.duration,
-            Symbol("duration")
-          ) || `\u2588`} */}
             {getTime(
               songInfo.duration,
               Symbol("duration")
@@ -113,6 +122,11 @@ const Player = ({
           className="skip-back"
           size="2x"
           icon={faAngleLeft}
+          onClick={() =>
+            skipTrackHandler(
+              "skip-back"
+            )
+          }
         />
         <FontAwesomeIcon
           onClick={playSongHandler}
@@ -126,6 +140,11 @@ const Player = ({
           className="skip-forward"
           size="2x"
           icon={faAngleRight}
+          onClick={() =>
+            skipTrackHandler(
+              "skip-forward"
+            )
+          }
         />
       </div>
       <audio

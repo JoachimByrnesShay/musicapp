@@ -2,23 +2,10 @@ import { useState } from "react";
 
 const LibrarySong = ({
   song,
-  setCurrentSong,
-  setSongs,
+  updateLibrarySelection,
 }) => {
   const songSelectHandler = () => {
-    setCurrentSong({
-      ...song,
-      active: true,
-    });
-    setSongs((songs) =>
-      songs.map((thisSong) => {
-        return {
-          ...thisSong,
-          active:
-            song.id === thisSong.id,
-        };
-      })
-    );
+    updateLibrarySelection(song);
   };
 
   const classes = song.active

@@ -19,6 +19,21 @@ function App() {
       duration: 0,
     });
 
+  const updateLibrarySelection = (
+    aSong
+  ) => {
+    setCurrentSong(aSong);
+    setSongs(
+      songs.map((mapSong) => {
+        return {
+          ...mapSong,
+          active:
+            mapSong.id === aSong.id,
+        };
+      })
+    );
+  };
+
   return (
     <div className="app">
       <Nav
@@ -26,16 +41,20 @@ function App() {
       />
       <Song song={currentSong} />
       <Player
+        songs={songs}
         song={currentSong}
         songInfo={songInfo}
         setSongInfo={setSongInfo}
+        updateLibrarySelection={
+          updateLibrarySelection
+        }
       />
       <Library
         songs={songs}
-        setCurrentSong={setCurrentSong}
-        currentSong={currentSong}
-        setSongs={setSongs}
         libraryOpen={libraryOpen}
+        updateLibrarySelection={
+          updateLibrarySelection
+        }
       />
     </div>
   );
